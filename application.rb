@@ -12,7 +12,6 @@ configure do
   end
 
   MongoMapper.connect("production")
-  MongoMapper.database = "pusher_fun"
 
   Pusher.app_id = '1786'
   Pusher.key = '09435da909450e9b4b6e'
