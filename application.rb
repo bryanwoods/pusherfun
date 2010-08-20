@@ -5,7 +5,13 @@ require 'haml'
 require 'sinatra'
 
 configure do
-  MongoMapper.connection = Mongo::Connection.new(ENV['MONGOHQ_URL'])
+  if ENV['MONGOHQ_URL']
+    MongoMapper.config = {"production" => {'uri' => ENV['MONGOHQ_URL']}}
+  else
+    MongoMapper.config = {"production" => {'uri' => 'mongodb://localhost/afternoon-autumn-81'}}
+  end
+
+  MongoMapper.connect("production")
   MongoMapper.database = "pusher_fun"
 
   Pusher.app_id = '1786'
