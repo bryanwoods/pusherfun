@@ -7,16 +7,8 @@
     :javascript
       $(document).ready(function() {
         var server = new Pusher("#{API_KEY}", 'test_channel');
-        function play(file) {
-          var embed = document.createElement("embed");
-          embed.setAttribute('src', file);
-          embed.setAttribute('hidden', true);
-          embed.setAttribute('autostart', true);
-          document.body.appendChild(embed);
-        }
         server.bind('my_event', function(message) {
           $(".messages").prepend('<p>' + message + '</p>');
-          // play('ding.wav');
         });
         $("#new_message_form").submit(function() {
           $.post("/messages", $("#new_message_form").serialize(), function(message) {
