@@ -13,7 +13,7 @@
         $("#new_message_form").submit(function() {
           $.post("/messages", $("#new_message_form").serialize(), function(message) {
             $(".messages").prepend('<p>' + message + '</p>');
-            $("input#screen_name_input").attr('disabled','disabled');
+            // $("input#screen_name_input").attr('disabled','disabled');
             $("input#message_input").val("");
           });
           return false;
