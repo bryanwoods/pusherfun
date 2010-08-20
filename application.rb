@@ -5,13 +5,15 @@ require 'haml'
 require 'sinatra'
 
 configure do
+  environment = Sinatra::Application.environment
+
   if ENV['MONGOHQ_URL']
-    MongoMapper.config = {"production" => {'uri' => ENV['MONGOHQ_URL']}}
+    MongoMapper.config = {environment => {'uri' => ENV['MONGOHQ_URL']}}
   else
-    MongoMapper.config = {"production" => {'uri' => 'mongodb://localhost/development'}}
+    MongoMapper.config = {environment => {'uri' => 'mongodb://localhost/development'}}
   end
 
-  MongoMapper.connect("production")
+  MongoMapper.connect(environment)
 
   Pusher.app_id = '1786'
   Pusher.key = '09435da909450e9b4b6e'
