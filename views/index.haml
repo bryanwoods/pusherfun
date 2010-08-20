@@ -36,7 +36,4 @@
             %input{:name=>"submit", :type=>"submit", :value=>"Submit"}
     .messages
       - @messages.reverse.each do |message|
-        %p
-          = message['screen_name']
-          said: 
-          = message['message']
+        %p= "#{message['screen_name']} said: #{message['message']}"
