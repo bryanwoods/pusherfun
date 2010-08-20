@@ -1,3 +1,4 @@
 pusher
 haml
 sinatra
+mongo_mapper
