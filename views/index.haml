@@ -13,13 +13,28 @@
         $("#new_message_form").submit(function() {
           $.post("/messages", $("#new_message_form").serialize(), function(message) {
             $(".messages").prepend('<p>' + message + '</p>');
+            $("input#screen_name_input").attr('disabled','disabled');
             $("input#message_input").val("");
           });
           return false;
         });
       });
   %body
-    %form{:action=>"/messages", :id=>"new_message_form", :method=>"post"}
-      %input{:type=>"text", :name=>"message", :id=>"message_input"}
-      %input{:name=>"submit", :type=>"submit", :value=>"Submit"}
+    %fieldset
+      %form{:action=>"/messages", :id=>"new_message_form", :method=>"post"}
+        %p
+          %label Screen Name:
+          %br/
+          %input{:type=>"screen_name", :name=>"screen_name", :id=>"screen_name_input"}
+        %p
+          %label Message:
+          %br/
+          %input{:type=>"text", :name=>"message", :id=>"message_input"}
+        %p
+          %input{:name=>"submit", :type=>"submit", :value=>"Submit"}
     .messages
+      - @messages.reverse.each do |message|
+        %p
+          = message['screen_name']
+          said: 
+          = message['message']
