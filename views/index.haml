@@ -2,11 +2,14 @@
 %html
   %head
     %script{:src=>"http://js.pusherapp.com/1.5/pusher.min.js"}
+    %script{:src=>"http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"}
     %title Pusher Fun
     :javascript
-      var server = new Pusher("#{API_KEY}", 'test_channel');
-      server.bind('my_event', function(message) {
-        alert(message);
+      $(document).ready(function() {
+        var server = new Pusher("#{API_KEY}", 'test_channel');
+        server.bind('my_event', function(message) {
+          $(".messages").prepend('<p>' + message + '</p>');
+        });
       });
   %body
-    Hi!
+    .messages
