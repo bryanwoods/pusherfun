@@ -29,7 +29,7 @@ class Message
 end
 
 get '/' do
-  @messages = Message.all
+  @messages = Message.all(:order => "id ASC", :limit => 10)
   haml(:index)
 end
 
