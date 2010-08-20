@@ -16,7 +16,7 @@
         }
         server.bind('my_event', function(message) {
           $(".messages").prepend('<p>' + message + '</p>');
-          play('ding.wav');
+          // play('ding.wav');
         });
         $("#new_message_form").submit(function() {
           $.post("/messages", $("#new_message_form").serialize(), function(message) {
