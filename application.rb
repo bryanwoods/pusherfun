@@ -17,7 +17,7 @@ get '/' do
   haml(:index)
 end
 
-get '/push/:message' do
+post '/messages/?' do
   @message = params[:message]
   Pusher['test_channel'].trigger('my_event', @message)
 end

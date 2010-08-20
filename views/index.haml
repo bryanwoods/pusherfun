@@ -10,6 +10,16 @@
         server.bind('my_event', function(message) {
           $(".messages").prepend('<p>' + message + '</p>');
         });
+        $("#new_message_form").submit(function() {
+          $.post("/messages", $("#new_message_form").serialize(), function(message) {
+            $(".messages").prepend('<p>' + message + '</p>');
+            $("input#message_input").val("");
+          });
+          return false;
+        });
       });
   %body
+    %form{:action=>"/messages", :id=>"new_message_form", :method=>"post"}
+      %input{:type=>"text", :name=>"message", :id=>"message_input"}
+      %input{:name=>"submit", :type=>"submit", :value=>"Submit"}
     .messages
