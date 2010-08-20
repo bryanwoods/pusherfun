@@ -2,3 +2,4 @@ pusher
 haml
 sinatra
 mongo_mapper
+bson_ext
