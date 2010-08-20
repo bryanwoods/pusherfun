@@ -36,7 +36,7 @@ end
 post '/messages/?' do
   @screen_name = params[:screen_name]
   @message = params[:message]
-  Pusher['test_channel'].trigger('my_event', "<b>#{@screen_name}</b> said: #{@message}")
+  Pusher['test_channel'].trigger('my_event', "<b>#{@screen_name}</b>: #{@message}")
   message = Message.create({:screen_name => @screen_name, :message => @message})
   message.save
 end
