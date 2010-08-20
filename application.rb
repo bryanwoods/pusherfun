@@ -8,7 +8,7 @@ configure do
   if ENV['MONGOHQ_URL']
     MongoMapper.config = {"production" => {'uri' => ENV['MONGOHQ_URL']}}
   else
-    MongoMapper.config = {"production" => {'uri' => 'mongodb://localhost/afternoon-autumn-81'}}
+    MongoMapper.config = {"production" => {'uri' => 'mongodb://localhost/development'}}
   end
 
   MongoMapper.connect("production")
