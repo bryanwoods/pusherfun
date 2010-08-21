@@ -24,10 +24,16 @@ configure do
   SECRET = Pusher.secret
 end
 
+helpers do
+  include Rack::Utils
+  alias_method :h, :escape_html
+end
+
 class Message
   include MongoMapper::Document
   key :screen_name, String, :required => true
   key :message, String, :required => true
+  timestamps!
 end
 
 get '/' do
@@ -38,7 +44,7 @@ end
 post '/messages/?' do
   @screen_name = params[:screen_name]
   @message = params[:message]
-  Pusher['test_channel'].trigger('my_event', "<b>#{@screen_name}</b>: #{@message}")
+  Pusher['test_channel'].trigger('my_event', "<b>#{h(@screen_name)}</b>: #{h(@message)}")
   message = Message.create({:screen_name => @screen_name, :message => @message})
   message.save
 end
