@@ -37,7 +37,7 @@ class Message
 end
 
 get '/' do
-  @messages = Message.all.reverse[0..50]
+  @messages = Message.all[0..50]
   haml(:index)
 end
 
