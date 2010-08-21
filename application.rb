@@ -44,7 +44,10 @@ end
 post '/messages/?' do
   @screen_name = params[:screen_name]
   @message = params[:message]
-  Pusher['test_channel'].trigger('my_event', "<b>#{h(@screen_name)}</b>: #{h(@message)}")
+  Pusher['test_channel'].trigger(
+    'my_event', "<small>#{Time.now.localtime.strftime('%m/%d/%Y %I:%M %p')}</small>" + 
+    "<br /><b>#{h(@screen_name)}</b>: #{h(@message)}"
+  )
   message = Message.create({:screen_name => @screen_name, :message => @message})
   message.save
 end
