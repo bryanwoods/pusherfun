@@ -5,15 +5,15 @@ require 'haml'
 require 'sinatra'
 
 configure do
-  environment = Sinatra::Application.environment
+  APP_ENVIRONMENT = Sinatra::Application.environment
 
   if ENV['MONGOHQ_URL']
-    MongoMapper.config = {environment => {'uri' => ENV['MONGOHQ_URL']}}
+    MongoMapper.config = {APP_ENVIRONMENT => {'uri' => ENV['MONGOHQ_URL']}}
   else
-    MongoMapper.config = {environment => {'uri' => 'mongodb://localhost/development'}}
+    MongoMapper.config = {APP_ENVIRONMENT => {'uri' => 'mongodb://localhost/development'}}
   end
 
-  MongoMapper.connect(environment)
+  MongoMapper.connect(APP_ENVIRONMENT)
 
   Pusher.app_id = '1786'
   Pusher.key = '09435da909450e9b4b6e'
@@ -44,8 +44,8 @@ end
 post '/messages/?' do
   @screen_name = params[:screen_name]
   @message = params[:message]
-  Pusher['test_channel'].trigger(
-    'my_event', "<small>#{Time.now.localtime.strftime('%m/%d/%Y %I:%M %p')}</small>" + 
+  Pusher["pusherfun-#{APP_ENVIRONMENT}"].trigger(
+    'new_message', "<small>#{Time.now.localtime.strftime('%m/%d/%Y %I:%M %p')}</small>" + 
     "<br /><b>#{h(@screen_name)}</b>: #{h(@message)}"
   )
   message = Message.create({:screen_name => @screen_name, :message => @message})

@@ -6,8 +6,8 @@
     %title Pusher Fun
     :javascript
       $(document).ready(function() {
-        var server = new Pusher("#{API_KEY}", 'test_channel');
-        server.bind('my_event', function(message) {
+        var server = new Pusher("#{API_KEY}", "pusherfun-#{APP_ENVIRONMENT}");
+        server.bind('new_message', function(message) {
           $(".messages").prepend('<p>' + message + '</p>');
         });
         $("#new_message_form").submit(function() {
