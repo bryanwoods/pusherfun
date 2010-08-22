@@ -6,7 +6,6 @@
     %title Pusher Fun
     :javascript
       $(document).ready(function() {
-        $(".messages p:odd").addClass("odd");
         var server = new Pusher("#{API_KEY}", "pusherfun-#{APP_ENVIRONMENT}");
         server.bind('new_message', function(message) {
           $(".messages").prepend('<p>' + message + '</p>');
@@ -20,10 +19,6 @@
           return false;
         });
       });
-    :css
-      .odd {
-        background: #FBF2F2;
-      }
   %body
     %fieldset
       %form{:action=>"/messages", :id=>"new_message_form", :method=>"post"}
